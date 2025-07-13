@@ -9,7 +9,7 @@
     </div>
 
     <h1>每日一诗</h1>
-    <PoemCard v-if="dailyPoem" :poem="dailyPoem" />
+    <PoemCard v-if="dailyPoem" :poem="dailyPoem" :index="dailyIndex" />
 
     <h2 style="margin-top: 30px;">更多诗词</h2>
     <transition-group name="fade" tag="div" appear>
@@ -17,6 +17,7 @@
         v-for="(poem, i) in paginatedPoems"
         :key="poem.title + i"
         :poem="poem"
+        :index="i"
         class="poem-item"
       />
     </transition-group>
@@ -74,10 +75,12 @@ watch(searchText, () => {
 onMounted(async () => {
   const res = await fetch('/poem/poem_shi.json')
   const data = await res.json()
+  const dailyIndex = ref(0)
   poems.value = data
 
   const todayIndex = new Date().getDate() % poems.value.length
   dailyPoem.value = poems.value[todayIndex]
+  dailyIndex.value = todayIndex
 })
 </script>
 

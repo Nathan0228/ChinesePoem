@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <header class="header">
-      <h1>Chinese Poem Daily</h1>
+      <HeaderPart />
     </header>
     <main class="wrapper_content">
       <router-view />
@@ -13,7 +13,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import HeaderPart from './components/HeaderPart.vue';
 // 无需内容
 </script>
 
@@ -43,14 +44,27 @@ body,html{
     url("/background/back1.png") no-repeat center center fixed;
   background-size: cover;
 }
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
+  height: 70px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .wrapper_content {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 70px; /* header高度 */
 }
-header, footer {
-   display: flex;
+footer {
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
@@ -59,7 +73,7 @@ header, footer {
 }
 
 @media (min-width: 1024px) {
-  header {
+  .header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);

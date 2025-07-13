@@ -9,6 +9,14 @@ const routes = [
             title: '首页' // 设置页面标题
         }
     },
+    {
+      path:"/poem/:index",
+      name:"PoemDetail",
+      component: () => import('../views/PoemDetail.vue'),
+      meta:{
+        title: '诗词详情'
+      }
+    }
 
 ];
 

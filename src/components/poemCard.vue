@@ -1,13 +1,30 @@
 <template>
-  <div class="poem-card">
+  <div class="poem-card" @click="handleClick">
     <p class="title">{{ poem.title }}</p>
     <p class="meta">{{ poem.dynasty }} · {{ poem.author }}</p>
     <pre class="content">{{ poem.content }}</pre>
   </div>
 </template>
 
-<script setup>
-defineProps({ poem: Object })
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const props = defineProps({
+  poem: {
+    type: Object,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true
+  }
+})
+const handleClick = () =>{
+  if(props.index !== undefined){
+    router.push(`/poem/${props.index}`)
+  }
+ }
 </script>
 
 <style scoped>
@@ -26,10 +43,13 @@ defineProps({ poem: Object })
   font-weight: bold;
 }
 .meta {
-  display: flex;
-  align-items: right;
   font-size: 0.9rem;
   color: #888;
+}
+pre{
+  font-size: 1.0rem;
+  font-weight: normal;
+  color:black;
 }
 .content {
   white-space: pre-wrap;
